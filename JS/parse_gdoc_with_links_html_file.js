@@ -1,3 +1,13 @@
+/*
+Create files by parsing html page, getting a url, and then appending it to a file's start
+*/
+
+
+
+
+
+
+
 "use strict";
 
 const fs = require("node:fs");
@@ -34,7 +44,7 @@ function setupFolder(url, name, index) {
     "HR_" +
     name +
     "\\";
-  let problemFile = problemDir + "program.cpp";
+  let problemFile = problemDir + "problem.cpp";
   let inputFile = problemDir + "input.txt";
   let outputFile = problemDir + "output.txt";
   let carSh = problemDir + "car.sh";
