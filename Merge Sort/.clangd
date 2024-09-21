@@ -1,0 +1,4 @@
+#clangd args (from https://clangd.llvm.org/faq#how-do-i-check-the-clangd-version-i-am-using)
+CompileFlags:
+  # Treat code as C++, use C++20 standard, enable more warnings.
+  Add: [-xc++, -std=c++20, -Wall, -Wno-missing-prototypes]

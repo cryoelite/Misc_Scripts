@@ -1,0 +1,24 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run File",
+            "type": "lldb",
+            "request": "launch",
+            "preLaunchTask": "Build using Clang (Release)",
+            "program": "${fileBasenameNoExtension}",
+            "cwd":"${fileDirname}"
+        },
+        {
+            "name": "Debug File",
+            "type": "lldb",
+            "request": "launch",
+            "preLaunchTask": "Build using Clang (Debug)",
+            "program": "${fileBasenameNoExtension}",
+            "cwd":"${fileDirname}"
+        }
+    ]
+}
