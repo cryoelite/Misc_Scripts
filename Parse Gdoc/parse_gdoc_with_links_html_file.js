@@ -47,7 +47,8 @@ function setupFolder(url, name, index) {
   let problemFile = problemDir + "problem.cpp";
   let inputFile = problemDir + "input.txt";
   let outputFile = problemDir + "output.txt";
-  let carSh = problemDir + "car.sh";
+  let carShFile = problemDir + "car.sh";
+  let solutionDocFile= problemDir + "solution.md";
   let commentedURL = "// " + url + " \n";
   let carShContent = `#!/bin/bash
   echo "Getting env variable"
@@ -75,7 +76,8 @@ function setupFolder(url, name, index) {
 
     fs.writeFileSync(inputFile, "", { flag: "w+" });
     fs.writeFileSync(outputFile, "", { flag: "w+" });
-    fs.writeFileSync(carSh, carShContent, { flag: "w+" });
+    fs.writeFileSync(solutionDocFile, "", { flag: "w+" });
+    fs.writeFileSync(carShFile, carShContent, { flag: "w+" });
 
     console.log(problemFile + " written succesfully");
   } catch (err) {

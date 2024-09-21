@@ -40,6 +40,7 @@ void merge_sort(int start_index, int end_index, vi &arr, vi &temp) {
 
     // make pairs, go from start to end, jump by 2m, 2m because m would be size
     // of first block, and then m would be size of second block, making it 2m
+    
     for (int i{start_index}, temp_index{0}; i < end_index;
          i += 2 * m, temp_index += 2 * m) {
       int a_start{i};
