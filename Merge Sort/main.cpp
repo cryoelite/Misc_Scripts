@@ -1,57 +1,57 @@
 #include <algorithm>
 #include <cstdio>
 #include <iostream>
+#include <iterator>
 #include <vector>
 
 #define int long long
 using vi = std::vector<int>;
 using namespace std;
+using vii = std::vector<int>::iterator;
 
-void merge(int a_start, int mid, int b_end, vi &arr, vi &temp, int temp_index) {
-  int a{a_start}, b{mid}, j{temp_index};
-  while (a < mid && b < b_end) {
-    if (arr[a] < arr[b]) {
-      temp[j] = arr[a];
-      ++a;
+void merge(vii a, vii a_end, vii b, vii b_end, vii temp_it) {
+  vii a_copy{a}, a_end_copy{a_end}, b_copy{b}, b_end_copy{b_end},
+      temp_it_copy{temp_it};
+  while (a_copy < a_end_copy && b_copy < b_end_copy) {
+    if (*a_copy < *b_copy) {
+      *temp_it_copy = *a_copy;
+      a_copy++;
     } else {
-      temp[j] = arr[b];
-      ++b;
+      *temp_it_copy = *b_copy;
+      b_copy++;
     }
-    ++j;
-  }
-  for (int i{a}; i < mid; ++i) {
-    temp[j++] = arr[i];
-  }
-  for (int i{b}; i < b_end; ++i) {
-    temp[j++] = arr[i];
+    temp_it_copy++;
   }
 
-  for (int i{a_start}, j{temp_index}; i < b_end; ++i, ++j) {
-    arr[i] = temp[j];
+  while (a_copy < a_end_copy) {
+    *temp_it_copy = *a_copy;
+    a_copy++;
+    temp_it_copy++;
   }
+  while (b_copy < b_end_copy) {
+    *temp_it_copy = *b_copy;
+    b_copy++;
+    temp_it_copy++;
+  }
+  vii a_copy_2{a}, b_end_copy_2{b_end}, temp_it_copy_2{temp_it};
+  swap_ranges(a_copy_2, b_end_copy_2, temp_it_copy_2);
 }
 
-void merge_sort(int start_index, int end_index, vi &arr, vi &temp) {
-  // Assuming start_index<end_index and both < arr.size()
-  int n{end_index - start_index + 1};
+void merge_sort(vii start, vii end) {
+  int n{std::distance(start, end)};
+  vi temp{vi(n, 0)};
 
-  // sorting for each value of m, which grows with the power of 2.
   for (int m{1}; m < n; m *= 2) {
 
-    // make pairs, go from start to end, jump by 2m, 2m because m would be size
-    // of first block, and then m would be size of second block, making it 2m
-    
-    for (int i{start_index}, temp_index{0}; i < end_index;
-         i += 2 * m, temp_index += 2 * m) {
-      int a_start{i};
-      int mid{a_start + m};
-      int b_end{min(mid + m, end_index + 1)};
+    for (int i{}; i < n; i += 2 * m) {
+      vii a{start + i};
+      vii a_end{min(a + m, end)}; // end exclusive
+      vii b{a_end};
+      vii b_end{min(b + m, end)}; // end exclusive
 
-      merge(a_start, mid, b_end, arr, temp, temp_index);
+      merge(a, a_end, b, b_end, temp.begin() + i);
     }
   }
-
-  swap_ranges(temp.begin(), temp.end(), arr.begin() + start_index);
 }
 
 signed main() {
@@ -61,14 +61,16 @@ signed main() {
   cin >> n;
 
   vi arr{vi(n, 0)};
-  vi temp{vi(n, 0)};
   for (int i{}; i < n; ++i) {
     int arg{};
     cin >> arg;
     arr[i] = arg;
   }
 
-  merge_sort(0, n - 1, arr, temp);
+  merge_sort(arr.begin(), arr.end());
 
+  for (int i{}; i < n; ++i) {
+    cout << arr[i] << '\n';
+  }
   return 0;
 }
