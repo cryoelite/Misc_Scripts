@@ -133,3 +133,18 @@ dist
 
 # node
 JS/node_modules/**/*
+# C++
+*.out
+*.exe
+*.o
+*.so
+*.a
+*.dll
+main
+new_allocator
+.vscode/
+.clangd/
+output.txt
+input.txt
+*.swp
+*~
